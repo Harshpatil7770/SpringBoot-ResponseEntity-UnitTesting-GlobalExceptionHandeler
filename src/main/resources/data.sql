@@ -1,2 +1,2 @@
-INSERT INTO CATEGORIES VALUES(?,?);
-INSERT INTO BRANDS VALUES(?,?);
+insert into brands values(?,?);
+insert into categories values(?,?);

@@ -14,17 +14,17 @@ public interface BrandService {
 
 	Brand updateBrand(Brand brand);
 
-//	List<Brand> updateListsOfBrand(List<Brand> brandLists);
-//
-//	Brand findByBrandName(String brandName);
-//
+	List<Brand> updateListsOfBrand(List<Brand> brandLists);
+
+	Optional<Brand> findByBrandName(String brandName);
+
 //	List<Brand> findByCategory(String categoryName);
 //
-//	Optional<Brand> findById(int brandId);
-//
-//	List<Brand> findAll();
-//
-//	void deleteBrand(int brandId);
+	Optional<Brand> findById(int brandId);
+
+	List<Brand> findAll();
+
+	void deleteBrand(int brandId);
 	
 	
 }

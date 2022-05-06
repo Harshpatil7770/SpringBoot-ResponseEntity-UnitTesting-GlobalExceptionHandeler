@@ -1,5 +1,6 @@
 package com.xoriant.ecart.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +59,64 @@ public class BrandServiceImpl implements BrandService {
 			throw new UserInputExpection();
 		}
 		return brandDao.save(brand);
+	}
+
+	@Override
+	public List<Brand> updateListsOfBrand(List<Brand> brandLists) {
+		List<Brand> updatedLists = new ArrayList<Brand>();
+		for (Brand checkExist : brandLists) {
+			Optional<Brand> existBrand = brandDao.findById(checkExist.getBrandId());
+			if (!existBrand.isPresent()) {
+				throw new ElementNotFoundException();
+			}
+
+			Brand brand = brandDao.findById(checkExist.getBrandId()).orElse(null);
+			brand.setBrandId(checkExist.getBrandId());
+			if (checkExist.getBrandName().isEmpty() || checkExist.getBrandName().length() == 0) {
+				throw new UserInputExpection();
+			}
+			brand.setBrandName(checkExist.getBrandName());
+			brandDao.save(checkExist);
+			updatedLists.add(checkExist);
+		}
+		return updatedLists;
+	}
+
+	@Override
+	public Optional<Brand> findByBrandName(String brandName) {
+		Optional<Brand> exitBrand = brandDao.findByBrandName(brandName);
+		if (!exitBrand.isPresent()) {
+			throw new ElementNotFoundException();
+		}
+		return brandDao.findByBrandName(brandName);
+	}
+
+	@Override
+	public Optional<Brand> findById(int brandId) {
+		Optional<Brand> existingBrand = brandDao.findById(brandId);
+		if (!existingBrand.isPresent()) {
+			throw new ElementNotFoundException();
+		}
+		return brandDao.findById(brandId);
+	}
+
+	@Override
+	public List<Brand> findAll() {
+		List<Brand> brandLists = brandDao.findAll();
+		if (brandLists.isEmpty()) {
+			throw new ElementNotFoundException();
+		}
+		return brandLists;
+	}
+
+	@Override
+	public void deleteBrand(int brandId) {
+
+		Optional<Brand> existBrand = brandDao.findById(brandId);
+		if (!existBrand.isPresent()) {
+			throw new ElementNotFoundException();
+		}
+		brandDao.deleteById(brandId);
 	}
 
 }
